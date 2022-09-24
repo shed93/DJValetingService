@@ -2,7 +2,9 @@
 {
     public class ValetingRequest
     {
-        public ValetingRequest(ClientValetingRequestViewModel clientValetingRequestViewModel)
+        public ValetingRequest()
+        { }
+            public ValetingRequest(ClientValetingRequestViewModel clientValetingRequestViewModel)
         {
             Name = clientValetingRequestViewModel.Name;
             BookingDate = clientValetingRequestViewModel.BookingDate;

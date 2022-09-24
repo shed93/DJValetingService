@@ -2,6 +2,9 @@
 {
     public class Ref_VehicleSizeViewModel
     {
+        public Ref_VehicleSizeViewModel()
+        {
+        }
         public Ref_VehicleSizeViewModel(Ref_VehicleSize s)
         {
             Id = s.Id;
