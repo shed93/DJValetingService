@@ -9,27 +9,69 @@ namespace DJValetingService.Controllers
     [ApiController]
     [Route("[controller]")]
     public class ValetingRequestController : ControllerBase
-    {        
+    {
 
         private readonly ILogger<ValetingRequestController> _logger;
         private ApplicationDbContext _dbContext;
-        public ValetingRequestController(ILogger<ValetingRequestController> logger,ApplicationDbContext dbContext)
+        public ValetingRequestController(ILogger<ValetingRequestController> logger, ApplicationDbContext dbContext)
         {
             _logger = logger;
             _dbContext = dbContext;
         }
         [HttpGet]
-        public List<Ref_VehicleSizeViewModel> GetVehichleSizes()
+        public ActionResult GetVehichleSizes()
         {
             var sizes = _dbContext.Ref_VehicleSizes.Where(w => w.Removed == false).Select(s => new Ref_VehicleSizeViewModel(s)).ToList();
-            return sizes;
+            return Ok(sizes);
         }
         [HttpGet]
-        public List<Ref_FlexibilityViewModel> GetFlexibility()
+        public ActionResult GetFlexibility()
         {
             var ref_Flexibilities = _dbContext.Ref_Flexibilities.Where(w => w.Removed == false).Select(s => new Ref_FlexibilityViewModel(s)).ToList();
-            return ref_Flexibilities;
+            return Ok(ref_Flexibilities);
         }
-        
+        [HttpPost]
+        public ActionResult SubmitClientBookingRequest([FromBody] ClientValetingRequestViewModel clientValetingRequestViewModel)
+        {
+            try
+            {
+                var request = new ValetingRequest(clientValetingRequestViewModel);
+                _dbContext.ValetingRequests.Add(request);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPatch]
+        [Authorize]
+        public ActionResult DeleteBookingRequest(int bookingRequestId)
+        {
+            var request = _dbContext.ValetingRequests.Where(w => w.Id == bookingRequestId).SingleOrDefault();
+            if (request != null)
+            {
+                request.Removed = true;
+                _dbContext.Update(request);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            return BadRequest();
+        }
+        [HttpPatch]
+        [Authorize]
+        public ActionResult ApproveBookingRequest(int bookingRequestId)
+        {
+            var request = _dbContext.ValetingRequests.Where(w => w.Id == bookingRequestId && w.Removed==false).SingleOrDefault();
+            if (request != null)
+            {
+                request.Approved = true;
+                _dbContext.Update(request);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
 }

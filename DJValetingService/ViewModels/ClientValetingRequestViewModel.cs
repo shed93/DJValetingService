@@ -1,6 +1,6 @@
 ﻿namespace DJValetingService.Models
 {
-    public class ValetingRequestViewModel
+    public class ClientValetingRequestViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

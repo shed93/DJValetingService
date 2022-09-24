@@ -2,6 +2,20 @@
 {
     public class ValetingRequest
     {
+        public ValetingRequest(ClientValetingRequestViewModel clientValetingRequestViewModel)
+        {
+            Name = clientValetingRequestViewModel.Name;
+            BookingDate = clientValetingRequestViewModel.BookingDate;
+            Flexibility.Id = clientValetingRequestViewModel.FlexibilityId;
+            VehicleSize.Id = clientValetingRequestViewModel.VehicleSizeId;
+            ContactNumber = clientValetingRequestViewModel.ContactNumber;
+            EmailAddress = clientValetingRequestViewModel.EmailAddress;
+            InsertStamp = DateTime.Now;
+            UpdateStamp = DateTime.Now;
+            Removed = false;
+            Approved = false;
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime BookingDate { get; set; }
