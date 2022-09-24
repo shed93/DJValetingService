@@ -73,5 +73,34 @@ namespace DJValetingService.Controllers
             }
             return BadRequest();
         }
+        [HttpGet]
+        [Authorize]
+        public ActionResult GetBookingRequests()
+        {
+            var bookingRequests = _dbContext.ValetingRequests.Where(w => w.Removed == false).Select(s => new ValetingRequestViewModel(s)).ToList();
+            return Ok(bookingRequests);
+        }
+        [HttpPost]
+        public ActionResult UpdateClientBookingRequest([FromBody] AdminValetingRequestViewModel adminValetingRequestViewModel)
+        {
+            try
+            {
+                var request = new ValetingRequest(adminValetingRequestViewModel);
+                if (_dbContext.ValetingRequests.Where(w => w.Id == request.Id).SingleOrDefault() != null)
+                {
+                    _dbContext.ValetingRequests.Update(request);
+                    _dbContext.SaveChanges();
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

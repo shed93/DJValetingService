@@ -6,8 +6,8 @@
         {
             Name = clientValetingRequestViewModel.Name;
             BookingDate = clientValetingRequestViewModel.BookingDate;
-            Flexibility.Id = clientValetingRequestViewModel.FlexibilityId;
-            VehicleSize.Id = clientValetingRequestViewModel.VehicleSizeId;
+            FlexibilityId = clientValetingRequestViewModel.FlexibilityId;
+            VehicleSizeId = clientValetingRequestViewModel.VehicleSizeId;
             ContactNumber = clientValetingRequestViewModel.ContactNumber;
             EmailAddress = clientValetingRequestViewModel.EmailAddress;
             InsertStamp = DateTime.Now;
@@ -15,11 +15,24 @@
             Removed = false;
             Approved = false;
         }
-
+        public ValetingRequest(AdminValetingRequestViewModel adminValetingRequestViewModel)
+        {
+            Id = adminValetingRequestViewModel.Id;
+            Name = adminValetingRequestViewModel.Name;
+            BookingDate = adminValetingRequestViewModel.BookingDate;
+            FlexibilityId = adminValetingRequestViewModel.FlexibilityId;
+            VehicleSizeId = adminValetingRequestViewModel.VehicleSizeId;
+            ContactNumber = adminValetingRequestViewModel.ContactNumber;
+            EmailAddress = adminValetingRequestViewModel.EmailAddress;
+            UpdateStamp = DateTime.Now;
+            Removed = false;
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime BookingDate { get; set; }
+        public int FlexibilityId { get; set; }
         public Ref_FlexibilityViewModel Flexibility { get; set; }
+        public int VehicleSizeId { get; set; }
         public Ref_VehicleSize VehicleSize { get; set; }    
         public string ContactNumber { get; set; }   
         public string EmailAddress { get; set; }
