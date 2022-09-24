@@ -15,11 +15,11 @@ namespace DJValetingService.Data
 
         }
         public DbSet<Ref_Flexibility> Ref_Flexibilities { get; set; }
+        public DbSet<Ref_VehicleSize> Ref_VehicleSizes { get; set; }
+        public DbSet<ValetingRequest> ValetingRequests { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //a hasher to hash the password before seeding the user to the db
-            var hasher = new PasswordHasher<ApplicationUser>();
             //Seeding the User to AspNetUsers table
             modelBuilder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
@@ -39,6 +39,12 @@ namespace DJValetingService.Data
                 new Ref_Flexibility() {Id=1, Flexibility = "+/- 1 Day"},
                 new Ref_Flexibility() {Id=2, Flexibility = "+/- 2 Day" },
                 new Ref_Flexibility() {Id=3, Flexibility = "+/- 3 Day" }
+                );
+            modelBuilder.Entity<Ref_VehicleSize>().HasData(
+                new Ref_VehicleSize() { Id = 1, Size = "Small" },
+                new Ref_VehicleSize() { Id = 2, Size = "Medium" },
+                new Ref_VehicleSize() { Id = 3, Size = "Large" },
+                new Ref_VehicleSize() { Id = 4, Size = "Van" }
                 );
         }
     }

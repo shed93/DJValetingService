@@ -4,6 +4,7 @@ using DJValetingService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DJValetingService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220924180652_added_ref_table_for_vehichle_sizes_and_seed_data")]
+    partial class added_ref_table_for_vehichle_sizes_and_seed_data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,56 +190,6 @@ namespace DJValetingService.Data.Migrations
                             Removed = false,
                             Size = "Van"
                         });
-                });
-
-            modelBuilder.Entity("DJValetingService.Models.ValetingRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<bool>("Approved")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ContactNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmailAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FlexibilityId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("InsertStamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Removed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("UpdateStamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("VehicleSizeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FlexibilityId");
-
-                    b.HasIndex("VehicleSizeId");
-
-                    b.ToTable("ValetingRequests");
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -516,25 +468,6 @@ namespace DJValetingService.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("DJValetingService.Models.ValetingRequest", b =>
-                {
-                    b.HasOne("DJValetingService.Models.Ref_Flexibility", "Flexibility")
-                        .WithMany()
-                        .HasForeignKey("FlexibilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DJValetingService.Models.Ref_VehicleSize", "VehicleSize")
-                        .WithMany()
-                        .HasForeignKey("VehicleSizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Flexibility");
-
-                    b.Navigation("VehicleSize");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
