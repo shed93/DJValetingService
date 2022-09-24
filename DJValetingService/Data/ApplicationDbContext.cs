@@ -14,6 +14,7 @@ namespace DJValetingService.Data
         {
 
         }
+        public DbSet<Ref_Flexibility> Ref_Flexibilities { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -26,11 +27,19 @@ namespace DJValetingService.Data
                     Id = "8b1f1931-99b6-4efd-9127-fd6fc1274968", // primary key
                     UserName = "admin",
                     NormalizedUserName = "ADMIN",
-                    PasswordHash = hasher.HashPassword(null, "Pa55w0rd!"),
+                    //password is Pa55word!
+                    PasswordHash = "AQAAAAEAACcQAAAAEGuPgcQAgn4yPWtCk0iaeq5hlcG+iRyKH9A7ZANBl/QVK32k+z9VTxz3zd8OLelvtw==",
                     Email = "admin@test.com",
                     EmailConfirmed = true,
+                    ConcurrencyStamp = "0b1ebfe1-15ca-4b86-b1af-b8709241d7cb",
+                    SecurityStamp = "57ff1a07-dc8d-4ea2-9d07-e572f9b98b78"
                 }
             );
+            modelBuilder.Entity<Ref_Flexibility>().HasData(
+                new Ref_Flexibility() {Id=1, Flexibility = "+/- 1 Day"},
+                new Ref_Flexibility() {Id=2, Flexibility = "+/- 2 Day" },
+                new Ref_Flexibility() {Id=3, Flexibility = "+/- 3 Day" }
+                );
         }
     }
 }

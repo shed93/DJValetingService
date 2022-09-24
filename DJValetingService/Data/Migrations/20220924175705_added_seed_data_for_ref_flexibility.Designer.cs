@@ -4,6 +4,7 @@ using DJValetingService.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DJValetingService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220924175705_added_seed_data_for_ref_flexibility")]
+    partial class added_seed_data_for_ref_flexibility
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,14 +93,14 @@ namespace DJValetingService.Data.Migrations
                         {
                             Id = "8b1f1931-99b6-4efd-9127-fd6fc1274968",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0b1ebfe1-15ca-4b86-b1af-b8709241d7cb",
+                            ConcurrencyStamp = "1d11d9a2-0762-49da-af7c-4b3fb158a3cc",
                             Email = "admin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGuPgcQAgn4yPWtCk0iaeq5hlcG+iRyKH9A7ZANBl/QVK32k+z9VTxz3zd8OLelvtw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKj96OkOlVJ1zJjfWwFu1bUj4SIznQrVpITJCFlIzFgpd2eAW6o6MMfZImfbIp4cvA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "57ff1a07-dc8d-4ea2-9d07-e572f9b98b78",
+                            SecurityStamp = "110d84b4-bfaa-42d7-9448-a7fa99f8b667",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -121,7 +123,7 @@ namespace DJValetingService.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ref_Flexibilities", (string)null);
+                    b.ToTable("Ref_Flexibilities");
 
                     b.HasData(
                         new
@@ -227,7 +229,7 @@ namespace DJValetingService.Data.Migrations
 
                     b.HasIndex("Use");
 
-                    b.ToTable("Keys", (string)null);
+                    b.ToTable("Keys");
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.PersistedGrant", b =>
