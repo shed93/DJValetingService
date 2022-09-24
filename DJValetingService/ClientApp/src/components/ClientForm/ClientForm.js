@@ -1,36 +1,38 @@
 import React, { Component } from 'react';
 
-export class Counter extends Component {
-    static displayName = Counter.name;
+export class ClientForm extends Component {
+    static displayName = ClientForm.name;
 
     constructor(props) {
         super(props);
         this.state = {
+            vehicleSizes: [],
         };
         this.submit = this.submitForm.bind(this);
+        this.getVehicleSizes();
     }
 
-    submitForm() {
-        this.setState({
-        });
+    submitForm(e) {
+        e.preventDefault();
     }
 
     render() {
         return (
             <div>
                 <h1>DJ Valeting Form</h1>
-                <form action="/ValetingRequest/SubmitClientBookingRequest">
-                    <label for="fname">First name:</label><br />
-                    <input type="text" id="fname" name="fname" value="John" />
-                    <br />
-                    <label for="lname">Last name:</label>
-                    <br />
-                    <input type="text" id="lname" name="lname" value="Doe" />
+                <form onSubmit={this.submit}>
+                    <label htmlFor="fname">First name:</label><br />
+                    <input type="text" id="name" name="name" ref={(name) => this.name = name} />
                     <br />
                     <br />
                     <input type="submit" value="Submit" />
                 </form>
             </div>
         );
+    }
+    async getVehicleSizes() {
+        const response = await fetch(`ValetingRequest/GetVehicleSizes`);
+        const data = await response.json();
+        this.setState({ vehicleSizes: data });
     }
 }

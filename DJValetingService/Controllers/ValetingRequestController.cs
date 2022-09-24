@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DJValetingService.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class ValetingRequestController : ControllerBase
@@ -18,23 +17,24 @@ namespace DJValetingService.Controllers
             _logger = logger;
             _dbContext = dbContext;
         }
-        [HttpGet]
-        public ActionResult GetVehichleSizes()
+        [HttpGet("[action]")]
+        public ActionResult GetVehicleSizes()
         {
             var sizes = _dbContext.Ref_VehicleSizes.Where(w => w.Removed == false).Select(s => new Ref_VehicleSizeViewModel(s)).ToList();
             return Ok(sizes);
         }
-        [HttpGet]
+        [HttpGet("[action]")]
         public ActionResult GetFlexibility()
         {
             var ref_Flexibilities = _dbContext.Ref_Flexibilities.Where(w => w.Removed == false).Select(s => new Ref_FlexibilityViewModel(s)).ToList();
             return Ok(ref_Flexibilities);
         }
-        [HttpPost]
-        public ActionResult SubmitClientBookingRequest([FromBody] ClientValetingRequestViewModel clientValetingRequestViewModel)
+        [HttpPost("[action]")]
+        public ActionResult SubmitClientBookingRequest([FromBody] string Name/*ClientValetingRequestViewModel clientValetingRequestViewModel*/)
         {
             try
             {
+                ClientValetingRequestViewModel clientValetingRequestViewModel=new ClientValetingRequestViewModel();
                 var request = new ValetingRequest(clientValetingRequestViewModel);
                 _dbContext.ValetingRequests.Add(request);
                 _dbContext.SaveChanges();
@@ -45,7 +45,7 @@ namespace DJValetingService.Controllers
                 return BadRequest();
             }
         }
-        [HttpPatch]
+        [HttpPatch("[action]")]
         [Authorize]
         public ActionResult DeleteBookingRequest(int bookingRequestId)
         {
@@ -59,7 +59,7 @@ namespace DJValetingService.Controllers
             }
             return BadRequest();
         }
-        [HttpPatch]
+        [HttpPatch("[action]")]
         [Authorize]
         public ActionResult ApproveBookingRequest(int bookingRequestId)
         {
@@ -73,14 +73,14 @@ namespace DJValetingService.Controllers
             }
             return BadRequest();
         }
-        [HttpGet]
+        [HttpGet("[action]")]
         [Authorize]
         public ActionResult GetBookingRequests()
         {
             var bookingRequests = _dbContext.ValetingRequests.Where(w => w.Removed == false).Select(s => new ValetingRequestViewModel(s)).ToList();
             return Ok(bookingRequests);
         }
-        [HttpPost]
+        [HttpPost("[action]")]
         public ActionResult UpdateClientBookingRequest([FromBody] AdminValetingRequestViewModel adminValetingRequestViewModel)
         {
             try

@@ -1,5 +1,5 @@
 import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
-import { Counter } from "./components/Counter";
+import { ClientForm } from "./components/ClientForm/ClientForm";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 
@@ -10,7 +10,7 @@ const AppRoutes = [
   },
   {
     path: '/counter',
-    element: <Counter />
+      element: <ClientForm />
   },
   {
     path: '/fetch-data',
